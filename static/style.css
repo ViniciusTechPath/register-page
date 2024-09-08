@@ -1,0 +1,19 @@
+/* Fonte */
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+/* Variáveis */
+:root {
+    --blue-getinfo: #a3f2ef;
+    --gray-getinfo: #595454;
+    --white: #fff;
+    --white-bg: #fafafa;
+    --black: #000000;
+}
+
+/* Geral */
+body {
+    font-family: "Inter", sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--white-bg); 
+}
