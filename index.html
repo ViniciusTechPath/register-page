@@ -30,7 +30,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="text-center mb-5">
-                                    <a href="#!">
+                                    <a href="#">
                                         <img src="assets/download.png" alt="Logo" width="175" height="57">
                                     </a>
                                 </div>
@@ -52,10 +52,9 @@
                         </ul>
 
                         <!-- Empresa -->
-                        <div class="tab-content" id="myTabContent" style="margin-top: 20px;">
-                            <!-- improviso rápido (dps tirar o margin-top daki)-->
+                        <div class="tab-content" id="myTabContent">
                             <div class="tab-pane fade" id="empresa" role="tabpanel" aria-labelledby="empresa-tab">
-                                <form action="#!">
+                                <form action="#">
                                     <div class="row gy-3 gy-md-4 overflow-hidden">
                                         <div class="col-12">
                                             <label for="nomeEmpresa" class="form-label">Nome da Empresa: <span
@@ -108,7 +107,7 @@
                             <!-- PF -->
                             <div class="tab-pane fade show active" id="pessoa" role="tabpanel"
                                 aria-labelledby="pessoa-tab">
-                                <form action="#!">
+                                <form action="#">
                                     <div class="row gy-3 gy-md-4 overflow-hidden">
                                         <div class="col-12">
                                             <label for="firstName" class="form-label">Nome: <span
@@ -163,23 +162,29 @@
                         <div class="row">
                             <div class="col-12">
                                 <hr class="mt-5 mb-4 border-secondary-subtle">
-                                <p class="m-0 text-secondary text-center">Já tem uma conta? <a href="#!"
+                                <p class="m-0 text-secondary text-center">Já tem uma conta? <a href="#"
                                         class="link-primary text-decoration-none">Entrar</a></p>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-12">
-                                <p class="mt-5 mb-5">Ou entre com</p>
-                                <div class="d-flex gap-2 gap-sm-3 justify-content-center">
-                                    <a href="#!" class="btn btn-lg btn-outline-danger p-3 lh-1">
-                                        <i class="bi bi-google"></i>
+                            <div class="col-12 text-center">
+                                <p class="mt-5 mb-5 text-secondary">Ou então...</p>
+                                <div class="d-flex flex-column gap-2 align-items-center">
+                                    <a href="#"
+                                        class="btn btn-sm btn-outline-danger d-flex align-items-center justify-content-center p-2 w-75 fs-6"
+                                        aria-label="Continuar com o Google">
+                                        <i class="bi bi-google me-2"></i>   Continuar com o Google
                                     </a>
-                                    <a href="#!" class="btn btn-lg btn-outline-primary p-3 lh-1">
-                                        <i class="bi bi-facebook"></i>
+                                    <a href="#"
+                                        class="btn btn-sm btn-outline-primary d-flex align-items-center justify-content-center p-2 w-75 fs-6"
+                                        aria-label="Continuar com o Facebook">
+                                        <i class="bi bi-facebook me-2"></i>   Continuar com o Facebook
                                     </a>
-                                    <a href="#!" class="btn btn-lg btn-outline-secondary p-3 lh-1">
-                                        <i class="bi bi-twitter-x"></i>
+                                    <a href="#"
+                                        class="btn btn-sm btn-outline-secondary d-flex align-items-center justify-content-center p-2 w-75 fs-6"
+                                        aria-label="Continuar com o Twitter">
+                                        <i class="bi bi-twitter-x me-2"></i>   Continuar com o X
                                     </a>
                                 </div>
                             </div>
@@ -188,6 +193,7 @@
                 </div>
             </div>
         </div>
+    </div>
     </div>
 
     <!-- Bootstrap JS -->
@@ -199,5 +205,4 @@
         crossorigin="anonymous"></script>
     <script src="static/index.js"></script>
 </body>
-
 </html>
