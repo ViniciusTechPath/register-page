@@ -17,3 +17,7 @@ body {
     padding: 0;
     background-color: var(--white-bg); 
 }
+
+div #myTabContent {
+    margin-top: 20px;
+}
