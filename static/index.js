@@ -114,7 +114,15 @@ $(document).ready(function () {
 
 function buscaCep(campo) {
     let cep = campo.value.replace(/\D/g, '');
-    let mensagemErro = document.getElementById('cepError');
+    let mensagemErro;
+    
+    // Usando o ID correto com base no campo que foi passado
+    if (campo.id === "cepEmpresa") {
+        mensagemErro = document.getElementById('cepErrorEmpresa');
+    } else if (campo.id === "cepPessoa") {
+        mensagemErro = document.getElementById('cepErrorPessoa');
+    }
+
     mensagemErro.innerHTML = "";
 
     limparCamposEndereco(campo);
@@ -129,7 +137,7 @@ function buscaCep(campo) {
         request.onload = function () {
             if (request.status === 200) {
                 let endereco = JSON.parse(request.response);
-
+                // Preenchendo os campos com os dados do CEP
                 if (campo.id === "cepEmpresa") {
                     document.getElementById("ruaEmpresa").value = endereco.street;
                     document.getElementById("bairroEmpresa").value = endereco.neighborhood;
@@ -152,13 +160,13 @@ function buscaCep(campo) {
                     bloquearCampo("ufPessoa");
                 }
 
-                mensagemErro.innerHTML = "";
+                mensagemErro.innerHTML = ""; // Limpa a mensagem de erro
 
             } else if (request.status === 404) {
-                mensagemErro.innerHTML = "CEP não encontrado. Verifique e tente novamente."; // Mensagem de CEP não encontrado
+                mensagemErro.innerHTML = "CEP não encontrado. Verifique e tente novamente."; 
                 limparCamposEndereco(campo);
             } else {
-                mensagemErro.innerHTML = "Erro ao buscar o CEP. Tente novamente mais tarde."; // Mensagem de erro genérico
+                mensagemErro.innerHTML = "Erro ao buscar o CEP. Tente novamente mais tarde."; 
                 limparCamposEndereco(campo);
             }
         };
@@ -167,6 +175,7 @@ function buscaCep(campo) {
         limparCamposEndereco(campo);
     }
 }
+
 
 function bloquearCampo(idCampo) {
     let campo = document.getElementById(idCampo);
