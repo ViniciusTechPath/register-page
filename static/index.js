@@ -83,8 +83,8 @@ function validarCNPJEnquantoDigita() {
     let cnpj = $("#cnpj").val();
     let resultado = $("#resultado");
 
-    if (cnpj.length === 18) { 
-        cnpj = cnpj.replace(/\D/g, ''); 
+    if (cnpj.length === 18) {
+        cnpj = cnpj.replace(/\D/g, '');
         if (validarCNPJ(cnpj)) {
             console.log("CPNJ válido");
         } else {
@@ -109,3 +109,108 @@ $(document).ready(function () {
     $("#cpf").inputmask("999.999.999-99");
     $("#cpf").on('input', validarCPF);
 });
+
+// https://www.youtube.com/watch?v=nJtwKUQkAGo - Preenchimento automático do endereço a partir do CEP usando HTML + JavaScript + BrasilAPI
+
+function buscaCep(campo) {
+    let cep = campo.value.replace(/\D/g, '');
+    let mensagemErro = document.getElementById('cepError');
+    mensagemErro.innerHTML = "";
+
+    limparCamposEndereco(campo);
+
+    if (cep !== "" && cep.length === 8) {
+        let urlapi = "https://brasilapi.com.br/api/cep/v1/" + cep;
+
+        let request = new XMLHttpRequest();
+        request.open("GET", urlapi);
+        request.send();
+
+        request.onload = function () {
+            if (request.status === 200) {
+                let endereco = JSON.parse(request.response);
+
+                if (campo.id === "cepEmpresa") {
+                    document.getElementById("ruaEmpresa").value = endereco.street;
+                    document.getElementById("bairroEmpresa").value = endereco.neighborhood;
+                    document.getElementById("cidadeEmpresa").value = endereco.city;
+                    document.getElementById("ufEmpresa").value = endereco.state;
+
+                    bloquearCampo("ruaEmpresa");
+                    bloquearCampo("bairroEmpresa");
+                    bloquearCampo("cidadeEmpresa");
+                    bloquearCampo("ufEmpresa");
+                } else if (campo.id === "cepPessoa") {
+                    document.getElementById("ruaPessoa").value = endereco.street;
+                    document.getElementById("bairroPessoa").value = endereco.neighborhood;
+                    document.getElementById("cidadePessoa").value = endereco.city;
+                    document.getElementById("ufPessoa").value = endereco.state;
+
+                    bloquearCampo("ruaPessoa");
+                    bloquearCampo("bairroPessoa");
+                    bloquearCampo("cidadePessoa");
+                    bloquearCampo("ufPessoa");
+                }
+
+                mensagemErro.innerHTML = "";
+
+            } else if (request.status === 404) {
+                mensagemErro.innerHTML = "CEP não encontrado. Verifique e tente novamente."; // Mensagem de CEP não encontrado
+                limparCamposEndereco(campo);
+            } else {
+                mensagemErro.innerHTML = "Erro ao buscar o CEP. Tente novamente mais tarde."; // Mensagem de erro genérico
+                limparCamposEndereco(campo);
+            }
+        };
+    } else if (cep.length !== 8) {
+        mensagemErro.innerHTML = "O CEP deve ter 8 dígitos numéricos.";
+        limparCamposEndereco(campo);
+    }
+}
+
+function bloquearCampo(idCampo) {
+    let campo = document.getElementById(idCampo);
+    campo.readOnly = true;
+    campo.style.backgroundColor = "#e9ecef";
+}
+
+function limparCamposEndereco(campo) {
+    if (campo.id === "cepEmpresa") {
+        document.getElementById("ruaEmpresa").value = "";
+        document.getElementById("bairroEmpresa").value = "";
+        document.getElementById("cidadeEmpresa").value = "";
+        document.getElementById("ufEmpresa").value = "";
+
+        desbloquearCampo("ruaEmpresa");
+        desbloquearCampo("bairroEmpresa");
+        desbloquearCampo("cidadeEmpresa");
+        desbloquearCampo("ufEmpresa");
+    } else if (campo.id === "cepPessoa") {
+        document.getElementById("ruaPessoa").value = "";
+        document.getElementById("bairroPessoa").value = "";
+        document.getElementById("cidadePessoa").value = "";
+        document.getElementById("ufPessoa").value = "";
+
+        desbloquearCampo("ruaPessoa");
+        desbloquearCampo("bairroPessoa");
+        desbloquearCampo("cidadePessoa");
+        desbloquearCampo("ufPessoa");
+    }
+}
+
+function desbloquearCampo(idCampo) {
+    let campo = document.getElementById(idCampo);
+    campo.readOnly = false;
+    campo.style.backgroundColor = "#ffffff";
+}
+
+window.onload = function () {
+    let cepEmpresa = document.getElementById("cepEmpresa");
+    let cepPessoa = document.getElementById("cepPessoa");
+
+    $(cepEmpresa).inputmask("99999-999");
+    $(cepPessoa).inputmask("99999-999");
+
+    cepEmpresa.addEventListener("blur", function () { buscaCep(cepEmpresa); });
+    cepPessoa.addEventListener("blur", function () { buscaCep(cepPessoa); });
+};
